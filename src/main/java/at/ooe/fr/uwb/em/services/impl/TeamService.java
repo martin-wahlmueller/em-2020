@@ -3,40 +3,42 @@ package at.ooe.fr.uwb.em.services.impl;
 import at.ooe.fr.uwb.em.commands.CreateTeam;
 import at.ooe.fr.uwb.em.dtos.TeamDto;
 import at.ooe.fr.uwb.em.models.Team;
-import at.ooe.fr.uwb.em.repositories.TeamRepository;
+import at.ooe.fr.uwb.em.repositories.ITeamRepository;
 import at.ooe.fr.uwb.em.services.ITeamService;
+import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.lang.reflect.Type;
+import java.util.Optional;
 
 @Service
 public class TeamService implements ITeamService {
 
     @Autowired
-    private TeamRepository teamRepository;
+    private ITeamRepository teamRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public Collection<TeamDto> getAllTeams() {
+    public Iterable<TeamDto> getAllTeams() {
         Iterable<Team> teams = teamRepository.findAll();
-        List<TeamDto> teamDtoList = new ArrayList<TeamDto>();
-        for(Team team : teams) {
-            TeamDto teamDto = modelMapper.map(team, TeamDto.class);
-            teamDtoList.add(teamDto);
-        }
+        Type listType = new TypeToken<Iterable<TeamDto>>() {}.getType();
+        Iterable<TeamDto> teamDtoList = modelMapper.map(teams, listType);
         return teamDtoList;
     }
 
     @Override
-    public TeamDto getTeamById(int id) {
-        Team team = teamRepository.findById(id).get();
-        return modelMapper.map(team, TeamDto.class);
+    public TeamDto getTeamById(Integer id) throws NotFoundException {
+        Optional<Team> optional = teamRepository.findById(id);
+        if(optional.isPresent()) {
+            return modelMapper.map(optional.get(), TeamDto.class);
+        } else {
+            throw new NotFoundException("entity not found");
+        }
     }
 
     @Override

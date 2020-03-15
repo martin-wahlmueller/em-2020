@@ -12,6 +12,19 @@ public class Team {
     private Integer id;
     private String name;
 
+    public Team() {
+
+    }
+
+    public Team(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Team(String name) {
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -2,11 +2,10 @@ package at.ooe.fr.uwb.em.services;
 
 import at.ooe.fr.uwb.em.commands.CreateTeam;
 import at.ooe.fr.uwb.em.dtos.TeamDto;
-
-import java.util.Collection;
+import javassist.NotFoundException;
 
 public interface ITeamService {
-    public abstract void createTeam(CreateTeam command);
-    public abstract Collection<TeamDto> getAllTeams();
-    public abstract TeamDto getTeamById(int id);
+    void createTeam(CreateTeam command);
+    Iterable<TeamDto> getAllTeams();
+    TeamDto getTeamById(Integer id) throws NotFoundException;
 }

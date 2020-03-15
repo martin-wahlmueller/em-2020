@@ -2,9 +2,11 @@ package at.ooe.fr.uwb.em.controllers;
 
 import at.ooe.fr.uwb.em.commands.CreateTeam;
 import at.ooe.fr.uwb.em.dtos.TeamDto;
-import at.ooe.fr.uwb.em.models.Team;
 import at.ooe.fr.uwb.em.services.ITeamService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +18,18 @@ public class TeamController {
     private ITeamService teamService;
 
     @GetMapping
-    public @ResponseBody Iterable<TeamDto> getAllTeams() {
-        return teamService.getAllTeams();
+    public @ResponseBody ResponseEntity<Iterable<TeamDto>> getAllTeams() {
+        return new ResponseEntity(teamService.getAllTeams(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public @ResponseBody TeamDto getTeamById(@PathVariable int id) {
-        return teamService.getTeamById(id);
+    public @ResponseBody ResponseEntity<TeamDto> getTeamById(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity(teamService.getTeamById(id), HttpStatus.OK);
+        } catch (NotFoundException exception)
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
