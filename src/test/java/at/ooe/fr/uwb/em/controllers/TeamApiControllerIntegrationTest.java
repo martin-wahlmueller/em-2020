@@ -1,5 +1,6 @@
 package at.ooe.fr.uwb.em.controllers;
 
+import at.ooe.fr.uwb.em.api.TeamApiController;
 import at.ooe.fr.uwb.em.dtos.TeamDto;
 import at.ooe.fr.uwb.em.services.ITeamService;
 import org.junit.jupiter.api.Test;
@@ -20,8 +21,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(TeamController.class)
-class TeamControllerIntegrationTest {
+@WebMvcTest(TeamApiController.class)
+class TeamApiControllerIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
@@ -36,7 +37,7 @@ class TeamControllerIntegrationTest {
         given(teamService.getTeamById(team.getId()))
                 .willReturn(team);
 
-        mvc.perform(get("/team/" + team.getId())
+        mvc.perform(get("/api/team/" + team.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
@@ -54,7 +55,7 @@ class TeamControllerIntegrationTest {
         given(teamService.getAllTeams())
                 .willReturn(teams);
 
-        mvc.perform(get("/team")
+        mvc.perform(get("/api/team")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content()
