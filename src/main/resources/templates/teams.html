@@ -6,7 +6,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 <body>
-<p>Get your teams <a th:href="@{/teams}">here</a></p>
-<p>Get your greeting <a href="/greeting">here</a></p>
+<h1>Teams</h1>
+<div>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each = "team : ${teams}">
+            <td th:utext = "${team.id}" />
+            <td th:utext = "${team.name}" />
+        </tr>
+    </table>
+</div>
 </body>
 </html>
