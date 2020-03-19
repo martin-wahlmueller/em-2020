@@ -1,18 +1,18 @@
 package at.ooe.fr.uwb.em.commands;
 
 public class CreateTeam {
-    private String name;
+    private String teamName;
 
     public CreateTeam() {
 
     }
 
-    public CreateTeam(String name) {
-        this.name = name;
+    public CreateTeam(String teamName) {
+        this.teamName = teamName;
     }
 
-    public String getName() {
-        return name;
+    public String getTeamName() {
+        return teamName;
     }
 
 

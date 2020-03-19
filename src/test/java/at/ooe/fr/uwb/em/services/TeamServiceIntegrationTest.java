@@ -40,7 +40,7 @@ class TeamServiceIntegrationTest {
         Team team = new Team(1, "austria");
 
         Mockito.when(modelMapper.map(Mockito.any(), Mockito.any()))
-                .thenReturn(new TeamDto(team.getId(), team.getName()));
+                .thenReturn(new TeamDto(team.getId(), team.getTeamName()));
         Mockito.when(teamRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(team));
 
@@ -62,7 +62,7 @@ class TeamServiceIntegrationTest {
 
         Collection<TeamDto> teamsDto = new ArrayList<TeamDto>();
         for(Team team : teamsIterable) {
-            teamsDto.add(new TeamDto(team.getId(), team.getName()));
+            teamsDto.add(new TeamDto(team.getId(), team.getTeamName()));
         }
         Iterable<TeamDto> teamsDtoIterable = teamsDto;
 

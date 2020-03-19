@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="api/team")
+@RequestMapping(path = "api/team")
 public class TeamApiController {
 
     @Autowired
@@ -22,7 +22,7 @@ public class TeamApiController {
     }
 
     @GetMapping(value = "/{id}")
-    public @ResponseBody ResponseEntity<TeamDto> getTeamById(@PathVariable Integer id) {
+    public @ResponseBody ResponseEntity<TeamDto> getTeamById(@PathVariable int id) {
         try {
             return new ResponseEntity(teamService.getTeamById(id), HttpStatus.OK);
         } catch (NotFoundException exception)

@@ -32,7 +32,7 @@ public class TeamService implements ITeamService {
     }
 
     @Override
-    public TeamDto getTeamById(Integer id) throws NotFoundException {
+    public TeamDto getTeamById(int id) throws NotFoundException {
         Optional<Team> optional = teamRepository.findById(id);
         if(optional.isPresent()) {
             return modelMapper.map(optional.get(), TeamDto.class);

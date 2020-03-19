@@ -2,30 +2,25 @@ package at.ooe.fr.uwb.em.dtos;
 
 public class TeamDto {
     private int id;
-    private String name;
+    private String teamName;
+    private GroupDto group;
 
     public TeamDto() {
 
     }
 
-    public TeamDto(int id, String name) {
+    public TeamDto(int id, String teamName) {
         this.id = id;
-        this.name = name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.teamName = teamName;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public String getName() {
-        return name;
-    }
+    public GroupDto getGroup() { return group; }
 }

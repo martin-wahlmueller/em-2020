@@ -7,5 +7,5 @@ import javassist.NotFoundException;
 public interface ITeamService {
     void createTeam(CreateTeam command);
     Iterable<TeamDto> getAllTeams();
-    TeamDto getTeamById(Integer id) throws NotFoundException;
+    TeamDto getTeamById(int id) throws NotFoundException;
 }

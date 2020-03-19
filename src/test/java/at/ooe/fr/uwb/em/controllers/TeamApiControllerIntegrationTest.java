@@ -42,7 +42,7 @@ class TeamApiControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                        .andExpect(jsonPath("$.name").value(team.getName()));
+                        .andExpect(jsonPath("$.name").value(team.getTeamName()));
     }
 
     @Test

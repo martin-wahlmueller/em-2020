@@ -1,43 +1,41 @@
 package at.ooe.fr.uwb.em.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "em_team")
 public class Team {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String name;
+    private int id;
+    private String teamName;
 
     public Team() {
 
     }
 
-    public Team(int id, String name) {
+    public Team(int id, String teamName) {
         this.id = id;
-        this.name = name;
+        this.teamName = teamName;
     }
 
-    public Team(String name) {
-        this.name = name;
+    public Team(String teamName) {
+        this.teamName = teamName;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTeamName() {
+        return teamName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }
