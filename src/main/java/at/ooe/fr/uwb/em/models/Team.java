@@ -9,14 +9,16 @@ public class Team {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
     private String teamName;
+    private String countryCode;
 
     public Team() {
 
     }
 
-    public Team(int id, String teamName) {
+    public Team(int id, String teamName, String countryCode) {
         this.id = id;
         this.teamName = teamName;
+        this.countryCode = countryCode;
     }
 
     public Team(String teamName) {
@@ -37,5 +39,13 @@ public class Team {
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }

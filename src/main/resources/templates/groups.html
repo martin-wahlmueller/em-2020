@@ -1,25 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Gruppen</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Groups</h1>
+<h1>Gruppen</h1>
 <div>
     <table class="table" th:each = "group : ${groups}">
         <tr>
-            <th th:utext="'Group ' + ${group.getGroupName()}"></th>
+            <th th:utext="'Group ' + ${group.groupName}"></th>
         </tr>
-        <tr th:each = "team : ${group.getTeams()}">
-            <td th:utext = "${team.getTeamName()}"/>
+        <tr th:each = "team : ${group.teams}">
+            <td th:switch = "${team.countryCode.isEmpty()}">
+                <img th:case="${true}" th:src="'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/24/Actions-flag-black-icon.png'">
+                <img th:case="${false}" th:src="'https://www.countryflags.io/' + ${team.countryCode} + '/flat/24.png'">
+                <span th:utext = "${team.teamName}"></span>
+            </td>
         </tr>
     </table>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script th:src="@{/js/javascript.js}"></script>
 </body>
 </html>

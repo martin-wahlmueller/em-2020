@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spiele</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<h1>Spiele</h1>
+<div>
+    <table id="gametable" class="table">
+        <thead>
+            <tr>
+                <th>Zeit</th>
+                <th>Heim</th>
+                <th>Auswärts</th>
+                <th>Ergebnis</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "game : ${games}">
+            <td th:utext = "${#temporals.format(game.dateTime, 'dd. MMMM yyyy - HH:mm')}"></td>
+            <td th:switch = "${game.homeTeam.countryCode.isEmpty()}">
+                <img th:case="${true}" th:src="'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/24/Actions-flag-black-icon.png'">
+                <img th:case="${false}" th:src="'https://www.countryflags.io/' + ${game.homeTeam.countryCode} + '/flat/24.png'">
+                <span th:utext = "${game.homeTeam.teamName}"></span>
+            </td>
+            <td th:switch = "${game.awayTeam.countryCode.isEmpty()}">
+                <img th:case="${true}" th:src="'http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/24/Actions-flag-black-icon.png'">
+                <img th:case="${false}" th:src="'https://www.countryflags.io/' + ${game.awayTeam.countryCode} + '/flat/24.png'">
+                <span th:utext = "${game.awayTeam.teamName}"></span>
+            </td>
+            <td th:switch = "${game.isFinish()}">
+                <span th:case="${false}" th:utext="'Kein Ergebnis'"/>
+                <span th:case="${true}" th:utext="${game.homeScore} + ':' + ${game.awayScore}"/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script th:src="@{/js/javascript.js}"></script>
+</body>
+</html>

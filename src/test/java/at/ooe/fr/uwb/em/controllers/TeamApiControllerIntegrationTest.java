@@ -32,7 +32,7 @@ class TeamApiControllerIntegrationTest {
 
     @Test
     public void Get_team_by_id_should_return_team_dto() throws Exception {
-        TeamDto team = new TeamDto(1, "austria");
+        TeamDto team = new TeamDto(1, "austria", "at");
 
         given(teamService.getTeamById(team.getId()))
                 .willReturn(team);
@@ -48,8 +48,8 @@ class TeamApiControllerIntegrationTest {
     @Test
     public void Get_teams_should_return_teams_dto() throws Exception {
         Collection<TeamDto> teams = new ArrayList<TeamDto>();
-        teams.add(new TeamDto(1, "austria"));
-        teams.add(new TeamDto(2, "italy"));
+        teams.add(new TeamDto(1, "austria", "at"));
+        teams.add(new TeamDto(2, "italy", "it"));
         Iterable<TeamDto> teamsIterable = teams;
 
         given(teamService.getAllTeams())

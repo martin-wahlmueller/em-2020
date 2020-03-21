@@ -37,10 +37,10 @@ class TeamServiceIntegrationTest {
     @Test
     public void Find_by_id_should_return_team() throws NotFoundException {
         //GIVEN
-        Team team = new Team(1, "austria");
+        Team team = new Team(1, "austria", "at");
 
         Mockito.when(modelMapper.map(Mockito.any(), Mockito.any()))
-                .thenReturn(new TeamDto(team.getId(), team.getTeamName()));
+                .thenReturn(new TeamDto(team.getId(), team.getTeamName(), team.getCountryCode()));
         Mockito.when(teamRepository.findById(Mockito.anyInt()))
                 .thenReturn(Optional.of(team));
 
@@ -56,13 +56,13 @@ class TeamServiceIntegrationTest {
     public void Get_all_should_return_teams() {
         //GIVEN
         Collection<Team> teams = new ArrayList<Team>();
-        teams.add(new Team(1, "austria"));
-        teams.add(new Team(2, "italy"));
+        teams.add(new Team(1, "austria", "at"));
+        teams.add(new Team(2, "italy", "it"));
         Iterable<Team> teamsIterable = teams;
 
         Collection<TeamDto> teamsDto = new ArrayList<TeamDto>();
         for(Team team : teamsIterable) {
-            teamsDto.add(new TeamDto(team.getId(), team.getTeamName()));
+            teamsDto.add(new TeamDto(team.getId(), team.getTeamName(), team.getCountryCode()));
         }
         Iterable<TeamDto> teamsDtoIterable = teamsDto;
 
