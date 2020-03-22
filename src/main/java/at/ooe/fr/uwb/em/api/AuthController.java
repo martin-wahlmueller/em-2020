@@ -4,6 +4,7 @@ import at.ooe.fr.uwb.em.auth.JwtTokenProvider;
 import at.ooe.fr.uwb.em.commands.AuthRequest;
 import at.ooe.fr.uwb.em.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -35,6 +36,9 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
+        if(userDetails == null) {
+            return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
         Map<Object, Object> model = new HashMap<>();
         model.put("username", userDetails.getUsername());
         model.put("roles", userDetails.getAuthorities()
