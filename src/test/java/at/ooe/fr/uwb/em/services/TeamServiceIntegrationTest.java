@@ -35,7 +35,7 @@ class TeamServiceIntegrationTest {
     private ModelMapper modelMapper;
 
     @Test
-    public void Find_by_id_should_return_team() throws NotFoundException {
+    void Find_by_id_should_return_team() throws NotFoundException {
         //GIVEN
         Team team = new Team(1, "austria", "at");
 
@@ -53,7 +53,7 @@ class TeamServiceIntegrationTest {
     }
 
     @Test
-    public void Get_all_should_return_teams() {
+    void Get_all_should_return_teams() {
         //GIVEN
         Collection<Team> teams = new ArrayList<Team>();
         teams.add(new Team(1, "austria", "at"));
@@ -81,7 +81,7 @@ class TeamServiceIntegrationTest {
             foundCollection.add(iterator.next());
         }
 
-        assertThat(foundCollection.size()).isEqualTo(teams.size());
+        assertThat(foundCollection).hasSameSizeAs(teams);
         assertThat(found).isEqualTo(teamsDto);
     }
 }

@@ -25,7 +25,7 @@ class TeamRepositoryIntegrationTest {
     private ITeamRepository teamRepository;
 
     @Test
-    public void Find_by_id_should_return_team() {
+    void Find_by_id_should_return_team() {
         //GIVEN
         Team team = new Team("austria");
         team = entityManager.persistAndFlush(team);
@@ -38,7 +38,7 @@ class TeamRepositoryIntegrationTest {
     }
 
     @Test
-    public void Find_all_should_return_teams() {
+    void Find_all_should_return_teams() {
         //GIVEN
         Collection<Team> teams = new ArrayList<Team>();
         teams.add(new Team("austria"));
@@ -59,7 +59,7 @@ class TeamRepositoryIntegrationTest {
             foundCollection.add(iterator.next());
         }
 
-        assertThat(foundCollection.size()).isEqualTo(teams.size());
+        assertThat(foundCollection).hasSameSizeAs(teams);
         assertThat(teamsIterable).isEqualTo(found);
     }
 }

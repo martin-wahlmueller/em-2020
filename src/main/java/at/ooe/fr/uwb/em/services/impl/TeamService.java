@@ -8,7 +8,8 @@ import at.ooe.fr.uwb.em.services.ITeamService;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -17,18 +18,22 @@ import java.util.Optional;
 @Service
 public class TeamService implements ITeamService {
 
-    @Autowired
-    private ITeamRepository teamRepository;
+    Logger logger = LoggerFactory.getLogger(TeamService.class);
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ITeamRepository teamRepository;
+
+    private final ModelMapper modelMapper;
+
+    public TeamService(ITeamRepository teamRepository, ModelMapper modelMapper) {
+        this.teamRepository = teamRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Iterable<TeamDto> getAllTeams() {
         Iterable<Team> teams = teamRepository.findAll();
         Type listType = new TypeToken<Iterable<TeamDto>>() {}.getType();
-        Iterable<TeamDto> teamDtoList = modelMapper.map(teams, listType);
-        return teamDtoList;
+        return modelMapper.map(teams, listType);
     }
 
     @Override

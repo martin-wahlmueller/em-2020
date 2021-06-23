@@ -6,7 +6,8 @@ import at.ooe.fr.uwb.em.repositories.IGameRepository;
 import at.ooe.fr.uwb.em.services.IGameService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -14,17 +15,21 @@ import java.lang.reflect.Type;
 @Service
 public class GameService implements IGameService {
 
-    @Autowired
-    private IGameRepository gameRepository;
+    Logger logger = LoggerFactory.getLogger(GameService.class);
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final IGameRepository gameRepository;
+
+    private final ModelMapper modelMapper;
+
+    public GameService(IGameRepository gameRepository, ModelMapper modelMapper) {
+        this.gameRepository = gameRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Iterable<GameDto> getAllGames() {
         Iterable<Game> games = gameRepository.findAll();
         Type listType = new TypeToken<Iterable<GameDto>>() {}.getType();
-        Iterable<GameDto> gamesDtoList = modelMapper.map(games, listType);
-        return gamesDtoList;
+        return modelMapper.map(games, listType);
     }
 }

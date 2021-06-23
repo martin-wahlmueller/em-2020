@@ -7,7 +7,8 @@ import at.ooe.fr.uwb.em.services.IGroupService;
 import javassist.NotFoundException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -16,18 +17,22 @@ import java.util.Optional;
 @Service
 public class GroupService implements IGroupService {
 
-    @Autowired
-    private IGroupRepository groupRepository;
+    Logger logger = LoggerFactory.getLogger(GroupService.class);
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final IGroupRepository groupRepository;
+
+    private final ModelMapper modelMapper;
+
+    public GroupService(IGroupRepository groupRepository, ModelMapper modelMapper) {
+        this.groupRepository = groupRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Iterable<GroupDto> getAllGroups() {
         Iterable<Group> groups = groupRepository.findAll();
         Type listType = new TypeToken<Iterable<GroupDto>>() {}.getType();
-        Iterable<GroupDto> groupDtoList = modelMapper.map(groups, listType);
-        return groupDtoList;
+        return modelMapper.map(groups, listType);
     }
 
     @Override

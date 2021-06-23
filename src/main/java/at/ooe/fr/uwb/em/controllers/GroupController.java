@@ -2,7 +2,8 @@ package at.ooe.fr.uwb.em.controllers;
 
 import at.ooe.fr.uwb.em.dtos.GroupDto;
 import at.ooe.fr.uwb.em.services.IGroupService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GroupController {
 
-    @Autowired
-    private IGroupService groupService;
+    Logger logger = LoggerFactory.getLogger(GroupController.class);
+
+    private final IGroupService groupService;
+
+    public GroupController(IGroupService groupService) {
+        this.groupService = groupService;
+    }
 
     @GetMapping("/group")
     public String teams(Model model) {

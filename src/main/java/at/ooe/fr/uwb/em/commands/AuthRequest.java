@@ -1,6 +1,8 @@
 package at.ooe.fr.uwb.em.commands;
 
-public class AuthRequest {
+import java.io.Serializable;
+
+public class AuthRequest implements Serializable{
     private String username;
     private String password;
 
